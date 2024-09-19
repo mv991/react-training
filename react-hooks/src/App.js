@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import {useCallback, useEffect, useMemo, useRef, useState} from "react"
+import {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from "react"
 import Header from './components/Header';
 import Contact from './components/Contact';
 import Profile from './components/Profile';
 import Footer from './components/Footer';
+import { useReducer } from 'react';
+import useLocalStorage from './hooks/useLocalStorage';
 
 // Change Fav Color
 // function App() {
@@ -147,18 +149,91 @@ import Footer from './components/Footer';
 //   export default App;
 
 // useContext Example
-function App() {
+// function App() {
   
-  const [counter,setCounter] = useState(0)
-  const newFunc = useCallback(() => {},[])
-  return (
-    <div className="App">
-      <Profile/>
-      <Contact/>
-      <Footer/>
+//   const [counter,setCounter] = useState(0)
+//   const newFunc = useCallback(() => {},[])
+//   return (
+//     <div className="App">
+//       <Profile/>
+//       <Contact/>
+//       <Footer/>
 
-    </div>
-  );
-}
+//     </div>
+//   );
+// }
 
-export default App;
+// export default App;
+
+
+// useReducer Example
+// function App() {
+
+//   const initialState = {count: 0}
+//   const reducer = (state,action) => {
+//    switch(action.type) {
+//      case 'increase':{
+//        return {count: state.count+1}
+//      }
+//      case 'decrease' : {
+//        return {count: state.count-1}
+//      }
+//      case 'input' : {
+//        return {count: action.payload}
+//      }
+//      default: {
+//        return state
+//      }
+//    }
+//   } 
+//  const [state,dispatch] = useReducer(reducer, initialState)
+ 
+//    return (
+//      <div className="App">
+//        <h1>{state.count}</h1>
+//        <button onClick={() => dispatch({type:"increase"})}>Increase</button>
+//        <button onClick={() => dispatch({type: "decrease"})}> Decrese</button>
+ 
+//        <input value={state.count} type='number' onChange={(e) => dispatch({type:'input',payload: Number(e.target.value)})}/>
+//      </div>
+//    );
+//  }
+ 
+//  export default App;
+
+
+
+// useLayoutEffect Example
+// function App() {
+// useEffect(() => {
+//    console.log("Message from useEffect")
+// },[])
+
+// useLayoutEffect(() => {
+//   console.log("Message from useLayoutEffect")
+// },[])
+//   return (
+//     <div className="App">
+//     <h2>Text message</h2>
+//     {Array(4000).fill('').map((item,index) => (
+//       <li key={index}>{Math.pow(Math.random(), 10)}</li>
+//     ))}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+// Custom Hook Example
+function App() {
+
+    const [name, setName] = useLocalStorage('username','')
+    return (
+      <div className="App">
+      <input type='text' placeholder='Enter your name' value={name} onChange={(e) => setName(e.target.value)}/>
+      <h2>Hello, {name}!</h2>
+      </div>
+    );
+  }
+  
+  export default App;
